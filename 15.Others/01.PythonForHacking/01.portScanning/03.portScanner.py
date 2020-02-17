@@ -12,10 +12,11 @@ from termcolor import colored
 
 """ This is 3 function"""
 
+
 def connScan(tgtHost, tgtPort):
     try:
-        sock = socket(AF_INET,SOCK_STREAM)
-        sock.connect((tgtHost,tgtPort))
+        sock = socket(AF_INET, SOCK_STREAM)
+        sock.connect((tgtHost, tgtPort))
         print(" [+] port {} tcp is Open".format(tgtPort))
 
     except:
@@ -24,17 +25,17 @@ def connScan(tgtHost, tgtPort):
     finally:
         sock.close()
 
+
 """ This is 2 function"""
 
 
 def portScan(tgtHost, tgtPorts):
-  
+
     try:
         tgtIP = gethostbyname(tgtHost)
 
     except:
         print("Unknown Host {} ".format(tgtHost))
-
 
     try:
         tgtName = gethostbyaddr(tgtIP)
@@ -47,15 +48,20 @@ def portScan(tgtHost, tgtPorts):
         t = Thread(target=connScan, args=(tgtHost, int(tgtPort)))
         t.start()
 
+
 """ This is main function"""
+
 
 def main():
 
-    parser = optparse.OptionParser('Usage Of Program: ' + '-H <traget host> -p <target port>')
+    parser = optparse.OptionParser(
+        'Usage Of Program: ' + '-H <traget host> -p <target port>')
 
-    parser.add_option('-H', dest='tgtHost', type='string',help='specify target host')
+    parser.add_option('-H', dest='tgtHost', type='string',
+                      help='specify target host')
 
-    parser.add_option('-p', dest='tgtPort', type='string',help='specify target ports seperated by comma')
+    parser.add_option('-p', dest='tgtPort', type='string',
+                      help='specify target ports seperated by comma')
 
     (options, args) = parser.parse_args()
 
@@ -66,7 +72,7 @@ def main():
         print(parser.usage)
         exit(0)
 
-    portScan(tgtHost,tgtPorts)
+    portScan(tgtHost, tgtPorts)
 
 
 if __name__ == '__main__':
